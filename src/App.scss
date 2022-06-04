@@ -1,1 +1,12 @@
-@import "~bootstrap/scss/bootstrap";
+@use "Colors";
+
+@use "~bootstrap/scss/bootstrap";
+
+.primary-header {
+  font-weight: bold;
+
+  span {
+    font-weight: lighter;
+    color: Colors.$secondaryText;
+  }
+}
