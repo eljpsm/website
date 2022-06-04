@@ -2,4 +2,4 @@ export type StringKeyToString = {
     [key: string]: string
 }
 
-const beginning = new Date(1970, 1, 1)
+export const emptyHref = "javascript:void(0)"
