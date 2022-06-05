@@ -53,12 +53,12 @@ export const BlogPostView = (props: BlogPostViewProps) => {
         }
     }
 
+    const unknownBlogPostTitle = "Could not find blog post :("
     if (currentBlogPost) {
         // If a blog post is found, update the title accordingly.
         props.updateTitle(currentBlogPost.fancyName ?? currentBlogPost.name)
     } else {
-        // Otherwise, use what the user expected the post should be.
-        props.updateTitle(expectedPostName)
+        props.updateTitle(unknownBlogPostTitle)
     }
 
     const similarNames = findSimilarNames(expectedPostName)
@@ -71,8 +71,7 @@ export const BlogPostView = (props: BlogPostViewProps) => {
                                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                    code({node, inline, className, children, ...props}) {
                                        const match = /language-(\w+)/.exec(className || '')
-                                       return !inline && match ? (
-                                           <SyntaxHighlighter
+                                       return !inline && match ? (<SyntaxHighlighter
                                                children={String(children).replace(/\n$/, '')}
                                                /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
                                                // @ts-ignore
@@ -82,16 +81,13 @@ export const BlogPostView = (props: BlogPostViewProps) => {
                                                showLineNumbers={true}
                                                showInlineLineNumbers={true}
                                                {...props}
-                                           />
-                                       ) : (
-                                           <code{...props}>
+                                           />) : (<code{...props}>
                                                {children}
-                                           </code>
-                                       )
+                                           </code>)
                                    }
                                }}
                 /> : <div>
-                    <h1>{`Could not find post "${expectedPostName}" :(`}</h1>
+                    <h1>{unknownBlogPostTitle}</h1>
                     {(similarNames && similarNames.length > 0) &&
                         <span>Similar post names: {similarNames.map((result) => {
                             return <Link className={"similar-post-name"}
