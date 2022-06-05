@@ -44,7 +44,7 @@ const BlogPostHeader = (props: BlogPostHeaderProps) => {
 
     const isNewPost = (postDate: Date) => {
         const current = new Date()
-        return isSameDay(current, postDate) || isBefore(current, postDate)
+        return isSameDay(current, postDate) || isBefore(current, new Date(postDate.getFullYear(), postDate.getMonth(), postDate.getDate() + 7))
     }
 
     return <div className={"blog-post-header"}>
