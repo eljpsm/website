@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react"
+import React from "react"
 import {StringKeyToString} from "../Utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "./BlogPostView.scss"
 import Loading from "../shared/Loading";
 import Fuse from "fuse.js";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 /**
  * The BlogPostView properties.
@@ -25,6 +25,10 @@ export const BlogPostView = (props: BlogPostViewProps) => {
     // Get the expected post name.
     const expectedPostName = window.location.pathname.slice(1)
 
+    /**
+     * Find similar blog post names from a given text string.
+     * @param text - The text to search.
+     */
     const findSimilarNames = (text: string) => {
         if (props.postTextMap) {
             const fuse = new Fuse(props.blogPostNames, {includeScore: true})

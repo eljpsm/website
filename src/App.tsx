@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./App.scss";
-import {Button, Container, Navbar} from "react-bootstrap";
+import {Container, Nav, Navbar} from "react-bootstrap";
 import HomeView from "./views/HomeView";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import BlogPostView from "./views/BlogPostView";
@@ -9,7 +9,6 @@ import assetMap from "./assets/index.json";
 import {compareAsc} from "date-fns";
 import {contactInformation, websiteInfo} from "./Info";
 import "./Bootstrap.scss"
-import blogPostView from "./views/BlogPostView";
 
 /**
  * Render the primary app.
@@ -19,10 +18,15 @@ const App = () => {
     const navigate = useNavigate()
     const blogPosts = assetMap.blogPosts
 
+    // Save all the blog post names.
+    //
+    // This is useful for giving suggestions on page names.
     const [blogPostNames, setBlogPostNames] = useState<string[]>([])
+
     // Save the blog posts, where the key is the name of the blog post, and the value is the markdown file content.
     const [postTextMap, setPostTextMap] = useState<StringKeyToString>()
 
+    // Declare whether the posts are currently being loaded.
     const [isLoadingPosts, setIsLoadingPosts] = useState<boolean>(false)
 
     // TODO: Implement an error display.
@@ -64,7 +68,8 @@ const App = () => {
         <Container>
             <Navbar className={"primary-header"}>
                 <Navbar.Brand className={"primary-header-brand"}
-                              onClick={() => navigate("/")}>eljpsm<span className={"primary-header-style"}>.com</span></Navbar.Brand>
+                              onClick={() => navigate("/")}>eljpsm<span
+                    className={"primary-header-style"}>.com</span></Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
                         email me at <a href={`mailto:${contactInformation.email}`}>eljpsm@eljpsm.com</a>
@@ -80,14 +85,15 @@ const App = () => {
                                                           isLoadingPosts={isLoadingPosts}/>}/>
                 </Routes>
             </div>
-            <Navbar>
-                <Navbar.Collapse className="justify-content-center">
-                    <Navbar.Text>
-                        <a target={"_blank"} rel={"noopener noreferrer"} href={websiteInfo.repository}>licensed under
-                            MIT</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-            </Navbar>
+            <Nav className={"flex-column primary-footer"}>
+                <Nav.Item className={"primary-footer-version"}>
+                    <p>{websiteInfo.version}</p>
+                </Nav.Item>
+                <Nav.Item>
+                    <a target={"_blank"} rel={"noopener noreferrer"} href={websiteInfo.repository}>licensed under
+                        MIT</a>
+                </Nav.Item>
+            </Nav>
         </Container>
     </div>;
 };

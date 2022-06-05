@@ -2,7 +2,7 @@ import React from "react"
 import {Badge} from "react-bootstrap";
 import "./HomeView.scss"
 import {BlogPost} from "../assets";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {isBefore, isSameDay} from "date-fns";
 
 /**
