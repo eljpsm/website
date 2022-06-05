@@ -1,12 +1,29 @@
 @use "Colors";
 
-@use "~bootstrap/scss/bootstrap";
+* {
+  font-family: monospace;
+}
 
 .primary-header {
-  font-weight: bold;
+}
 
-  span {
-    font-weight: lighter;
-    color: Colors.$secondaryText;
-  }
+.primary-header-brand {
+  font-weight: bold;
+  user-select: none;
+}
+
+.primary-header:hover {
+  cursor: pointer;
+}
+
+.primary-header-style {
+  cursor: pointer;
+  user-select: none;
+  font-weight: lighter;
+  color: Colors.$background;
+  background-color: Colors.$primary;
+}
+
+.content {
+  min-height: 80vh;
 }

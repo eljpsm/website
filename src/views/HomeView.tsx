@@ -2,9 +2,8 @@ import React from "react"
 import {Badge} from "react-bootstrap";
 import "./HomeView.scss"
 import {BlogPost} from "../assets";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {isBefore, isSameDay} from "date-fns";
-import {emptyHref} from "../Utils";
 
 /**
  * The HomeView properties.
@@ -41,7 +40,6 @@ interface BlogPostHeaderProps {
  * @constructor
  */
 const BlogPostHeader = (props: BlogPostHeaderProps) => {
-    const navigate = useNavigate()
     const postDate = new Date(props.blogPost.date)
 
     const isNewPost = (postDate: Date) => {
@@ -53,11 +51,10 @@ const BlogPostHeader = (props: BlogPostHeaderProps) => {
         <span
             className={"blog-post-header-date"}
         >{postDate.toDateString()}</span>
-        <a className={"blog-post-header-link"}
-           href={emptyHref}
-           onClick={() => navigate(`/${props.blogPost.name}`, {replace: true})}>{props.blogPost.fancyName ?? props.blogPost.name}
+        <Link className={"blog-post-header-link"}
+              to={`/${props.blogPost.name}`}>{props.blogPost.fancyName ?? props.blogPost.name}
             {isNewPost(postDate) && <Badge className={"blog-post-header-badge"}>new</Badge>}
-        </a>
+        </Link>
     </div>
 }
 

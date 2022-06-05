@@ -1,3 +1,10 @@
 // A generic blog post.
 .blog-post {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.similar-post-name {
+  padding-right: 0.25em;
 }
