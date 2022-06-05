@@ -1,5 +1,5 @@
 import React, {useEffect} from "react"
-import {Badge, Col, Row} from "react-bootstrap";
+import {Badge} from "react-bootstrap";
 import "./HomeView.scss"
 import {BlogPost} from "../assets";
 import {Link} from "react-router-dom";

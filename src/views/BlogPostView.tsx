@@ -72,6 +72,7 @@ export const BlogPostView = (props: BlogPostViewProps) => {
                                remarkPlugins={[remarkGfm, remarkGemoji]}
                                components={{
                                    // Fix image scaling on small devices and really large images.
+                                   // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                    img: ({node, ...props}) => <img
                                        className={"markdown-image"} {...props} alt={props.alt}/>,
 
