@@ -1,5 +1,5 @@
 import React, {useEffect} from "react"
-import {Badge} from "react-bootstrap";
+import {Badge, Col, Row} from "react-bootstrap";
 import "./HomeView.scss"
 import {BlogPost} from "../assets";
 import {Link} from "react-router-dom";
@@ -54,9 +54,9 @@ const BlogPostHeader = (props: BlogPostHeaderProps) => {
     const postDate = new Date(props.blogPost.date)
 
     return <div className={"blog-post-header"}>
-        <span
+        <p
             className={"blog-post-header-date"}
-        >{postDate.toDateString().toLowerCase()}</span>
+        >{postDate.toDateString().toLowerCase()}</p>
         <Link className={"blog-post-header-link"}
               to={`/${props.blogPost.name}`}>{props.blogPost.fancyName ?? props.blogPost.name}
             {isNewPost(postDate) && <Badge className={"blog-post-header-badge"}>new</Badge>}

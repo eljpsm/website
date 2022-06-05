@@ -1,11 +1,12 @@
 @use "../Colors";
 
 .blog-post-header {
+  margin-bottom: 2em;
 }
 
 .blog-post-header-date {
   color: Colors.$secondaryText;
-  padding-right: 1em;
+  margin-bottom: 0.25em;
 }
 
 .blog-post-header-badge {
