@@ -70,7 +70,7 @@ export const BlogPostView = (props: BlogPostViewProps) => {
                                components={{
                                    // Fix image scaling on small devices and really large images.
                                    img: ({node, ...props}) => <img
-                                       style={{maxWidth: "100%"}}{...props} alt={props.alt}/>,
+                                       className={"markdown-image"} {...props} alt={props.alt}/>,
 
                                    // Format code using SyntaxHighlighter.
                                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
