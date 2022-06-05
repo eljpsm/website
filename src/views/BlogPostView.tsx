@@ -1,5 +1,5 @@
 import React from "react"
-import {StringKeyToString} from "../Utils";
+import {formatDate, StringKeyToString} from "../Utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "./BlogPostView.scss"
@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
 import {solarizedlight} from "react-syntax-highlighter/dist/esm/styles/prism";
 import {BlogPost} from "../assets";
+import remarkGemoji from "remark-gemoji";
 
 
 /**
@@ -56,7 +57,7 @@ export const BlogPostView = (props: BlogPostViewProps) => {
     const unknownBlogPostTitle = "Could not find blog post :("
     if (currentBlogPost) {
         // If a blog post is found, update the title accordingly.
-        props.updateTitle(currentBlogPost.fancyName ?? currentBlogPost.name)
+        props.updateTitle(currentBlogPost.safeName ?? currentBlogPost.name)
     } else {
         props.updateTitle(unknownBlogPostTitle)
     }
@@ -65,8 +66,10 @@ export const BlogPostView = (props: BlogPostViewProps) => {
 
     return <div className={"blog-post"}>
         {(props.postTextMap === undefined || props.isLoadingPosts) ?
-            <Loading/> : expectedPostName in props.postTextMap ?
-                <ReactMarkdown children={props.postTextMap[expectedPostName]} remarkPlugins={[remarkGfm]}
+            <Loading/> : (expectedPostName in props.postTextMap && currentBlogPost) ? <>
+                <p className={"blog-info-date"}>{formatDate(currentBlogPost?.date)}</p>
+                <ReactMarkdown children={props.postTextMap[expectedPostName]}
+                               remarkPlugins={[remarkGfm, remarkGemoji]}
                                components={{
                                    // Fix image scaling on small devices and really large images.
                                    img: ({node, ...props}) => <img
@@ -85,20 +88,23 @@ export const BlogPostView = (props: BlogPostViewProps) => {
                                            PreTag="div"
                                            showLineNumbers={true}
                                            showInlineLineNumbers={true}
+                                           wrapLines={true}
+                                           wrapLongLines={true}
                                            {...props}
                                        />) : (<code{...props}>
                                            {children}
                                        </code>)
                                    }
                                }}
-                /> : <div>
-                    <h1>{unknownBlogPostTitle}</h1>
-                    {(similarNames && similarNames.length > 0) &&
-                        <span>Similar post names: {similarNames.map((result) => {
-                            return <Link className={"similar-post-name"}
-                                         to={`/${result.item}`}>{result.item}</Link>
-                        })}</span>}
-                </div>}
+                />
+            </> : <div>
+                <h1>{unknownBlogPostTitle}</h1>
+                {(similarNames && similarNames.length > 0) && <span>Similar post names: {similarNames.map((result) => {
+                    return <Link className={"similar-post-name"}
+                                 to={`/${result.item}`}>{result.item}</Link>
+                })}</span>}
+            </div>}
+        <Link className={"return-link"} to={"/"}>{"<- return to home"}</Link>
     </div>
 }
 

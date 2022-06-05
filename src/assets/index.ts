@@ -5,5 +5,5 @@ export interface BlogPost {
     name: string,
     localPath: string,
     date: string,
-    fancyName?: string
+    safeName?: string
 }

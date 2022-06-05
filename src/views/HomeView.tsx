@@ -58,7 +58,7 @@ const BlogPostHeader = (props: BlogPostHeaderProps) => {
             className={"blog-post-header-date"}
         >{postDate.toDateString().toLowerCase()}</p>
         <Link className={"blog-post-header-link"}
-              to={`/${props.blogPost.name}`}>{props.blogPost.fancyName ?? props.blogPost.name}
+              to={`/${props.blogPost.name}`}>{`${props.index}. ${props.blogPost.safeName ?? props.blogPost.name}`}
             {isNewPost(postDate) && <Badge className={"blog-post-header-badge"}>new</Badge>}
         </Link>
     </div>
