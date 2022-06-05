@@ -68,22 +68,27 @@ export const BlogPostView = (props: BlogPostViewProps) => {
             <Loading/> : expectedPostName in props.postTextMap ?
                 <ReactMarkdown children={props.postTextMap[expectedPostName]} remarkPlugins={[remarkGfm]}
                                components={{
+                                   // Fix image scaling on small devices and really large images.
+                                   img: ({node, ...props}) => <img
+                                       style={{maxWidth: "100%"}}{...props} alt={props.alt}/>,
+
+                                   // Format code using SyntaxHighlighter.
                                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                    code({node, inline, className, children, ...props}) {
                                        const match = /language-(\w+)/.exec(className || '')
                                        return !inline && match ? (<SyntaxHighlighter
-                                               children={String(children).replace(/\n$/, '')}
-                                               /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
-                                               // @ts-ignore
-                                               style={solarizedlight}
-                                               language={match[1]}
-                                               PreTag="div"
-                                               showLineNumbers={true}
-                                               showInlineLineNumbers={true}
-                                               {...props}
-                                           />) : (<code{...props}>
-                                               {children}
-                                           </code>)
+                                           children={String(children).replace(/\n$/, '')}
+                                           /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+                                           // @ts-ignore
+                                           style={solarizedlight}
+                                           language={match[1]}
+                                           PreTag="div"
+                                           showLineNumbers={true}
+                                           showInlineLineNumbers={true}
+                                           {...props}
+                                       />) : (<code{...props}>
+                                           {children}
+                                       </code>)
                                    }
                                }}
                 /> : <div>
