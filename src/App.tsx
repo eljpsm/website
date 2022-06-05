@@ -15,6 +15,14 @@ import "./Bootstrap.scss"
  * @constructor
  */
 const App = () => {
+    /**
+     * Update the app title.
+     * @param title - The new title.
+     */
+    const updateTitle = (title: string) => {
+        document.title = title
+    }
+
     const navigate = useNavigate()
     const blogPosts = assetMap.blogPosts
 
@@ -32,6 +40,9 @@ const App = () => {
     // TODO: Implement an error display.
     const [error, setError] = useState<unknown>()
 
+    // Order the blog posts by their date.
+    //
+    // This makes it easier to search them.
     const orderedBlogPosts = blogPosts.sort((a, b) => {
         const dateA = new Date(a.date)
         const dateB = new Date(b.date)
@@ -78,11 +89,12 @@ const App = () => {
             </Navbar>
             <div className={"content"}>
                 <Routes>
-                    <Route path={"/"} element={<HomeView blogPosts={orderedBlogPosts}/>}/>
+                    <Route path={"/"} element={<HomeView blogPosts={orderedBlogPosts} updateTitle={updateTitle}/>}/>
                     <Route
                         // Catch all other paths and try and interpret them as blog posts.
-                        path={"*"} element={<BlogPostView blogPostNames={blogPostNames} postTextMap={postTextMap}
-                                                          isLoadingPosts={isLoadingPosts}/>}/>
+                        path={"*"} element={<BlogPostView blogPostNames={blogPostNames} blogPosts={blogPosts}
+                                                          postTextMap={postTextMap}
+                                                          isLoadingPosts={isLoadingPosts} updateTitle={updateTitle}/>}/>
                 </Routes>
             </div>
             <Nav className={"flex-column primary-footer"}>

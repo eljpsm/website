@@ -15,5 +15,6 @@ export const contactInformation: StringKeyToString = {
  */
 export const websiteInfo: StringKeyToString = {
     version: "0.1.0",
-    repository: "https://github.com/eljpsm/website"
+    repository: "https://github.com/eljpsm/website",
+    title: "Elijah Passmore's blog"
 }

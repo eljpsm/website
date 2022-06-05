@@ -1,15 +1,17 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {Badge} from "react-bootstrap";
 import "./HomeView.scss"
 import {BlogPost} from "../assets";
 import {Link} from "react-router-dom";
 import {isBefore, isSameDay} from "date-fns";
+import {websiteInfo} from "../Info";
 
 /**
  * The HomeView properties.
  */
 export interface HomeViewProps {
-    blogPosts: BlogPost[],
+    blogPosts: BlogPost[]
+    updateTitle: (title: string) => void
 }
 
 /**
@@ -18,6 +20,10 @@ export interface HomeViewProps {
  * @constructor
  */
 export const HomeView = (props: HomeViewProps) => {
+    useEffect(() => {
+        props.updateTitle(websiteInfo.title)
+    }, [])
+
     return <>
         {// Display all the possible blog posts.
             props.blogPosts.map((blogPost, index) => {
@@ -40,12 +46,12 @@ interface BlogPostHeaderProps {
  * @constructor
  */
 const BlogPostHeader = (props: BlogPostHeaderProps) => {
-    const postDate = new Date(props.blogPost.date)
-
     const isNewPost = (postDate: Date) => {
         const current = new Date()
         return isSameDay(current, postDate) || isBefore(current, new Date(postDate.getFullYear(), postDate.getMonth(), postDate.getDate() + 7))
     }
+
+    const postDate = new Date(props.blogPost.date)
 
     return <div className={"blog-post-header"}>
         <span

@@ -8,6 +8,7 @@ import Fuse from "fuse.js";
 import {Link} from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
 import {solarizedlight} from "react-syntax-highlighter/dist/esm/styles/prism";
+import {BlogPost} from "../assets";
 
 
 /**
@@ -15,8 +16,10 @@ import {solarizedlight} from "react-syntax-highlighter/dist/esm/styles/prism";
  */
 export interface BlogPostViewProps {
     blogPostNames: string[]
+    blogPosts: BlogPost[]
     postTextMap: StringKeyToString | undefined
     isLoadingPosts: boolean
+    updateTitle: (title: string) => void
 }
 
 /**
@@ -25,9 +28,6 @@ export interface BlogPostViewProps {
  * @constructor
  */
 export const BlogPostView = (props: BlogPostViewProps) => {
-    // Get the expected post name.
-    const expectedPostName = window.location.pathname.slice(1)
-
     /**
      * Find similar blog post names from a given text string.
      * @param text - The text to search.
@@ -40,6 +40,25 @@ export const BlogPostView = (props: BlogPostViewProps) => {
         }
 
         return []
+    }
+
+    const expectedPostName = window.location.pathname.slice(1)
+    let currentBlogPost: BlogPost | undefined
+
+    // Get the current blog post.
+    for (let i = 0; i < props.blogPosts.length; i++) {
+        if (props.blogPosts[i].name === expectedPostName) {
+            currentBlogPost = props.blogPosts[i]
+            break
+        }
+    }
+
+    if (currentBlogPost) {
+        // If a blog post is found, update the title accordingly.
+        props.updateTitle(currentBlogPost.fancyName ?? currentBlogPost.name)
+    } else {
+        // Otherwise, use what the user expected the post should be.
+        props.updateTitle(expectedPostName)
     }
 
     const similarNames = findSimilarNames(expectedPostName)
@@ -73,10 +92,11 @@ export const BlogPostView = (props: BlogPostViewProps) => {
                                }}
                 /> : <div>
                     <h1>{`Could not find post "${expectedPostName}" :(`}</h1>
-                    {similarNames && <span>Similar post names: {similarNames.map((result) => {
-                        return <Link className={"similar-post-name"}
-                                     to={`/${result.item}`}>{result.item}</Link>
-                    })}</span>}
+                    {(similarNames && similarNames.length > 0) &&
+                        <span>Similar post names: {similarNames.map((result) => {
+                            return <Link className={"similar-post-name"}
+                                         to={`/${result.item}`}>{result.item}</Link>
+                        })}</span>}
                 </div>}
     </div>
 }
