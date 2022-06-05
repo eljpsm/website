@@ -1,6 +1,9 @@
 {
   "name": "@eljpsm/website",
+  "description": "Elijah Passmore's blog",
   "author": "Elijah Passmore <eljpsm@eljpsm.com> (https://eljpsm.com/)",
+  "homepage": "https://eljpsm.com",
+  "license": "MIT",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
