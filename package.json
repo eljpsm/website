@@ -1,5 +1,6 @@
 {
   "name": "@eljpsm/website",
+  "author": "Elijah Passmore <eljpsm@eljpsm.com> (https://eljpsm.com/)",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
