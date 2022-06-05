@@ -50,7 +50,7 @@ const BlogPostHeader = (props: BlogPostHeaderProps) => {
     return <div className={"blog-post-header"}>
         <span
             className={"blog-post-header-date"}
-        >{postDate.toDateString()}</span>
+        >{postDate.toDateString().toLowerCase()}</span>
         <Link className={"blog-post-header-link"}
               to={`/${props.blogPost.name}`}>{props.blogPost.fancyName ?? props.blogPost.name}
             {isNewPost(postDate) && <Badge className={"blog-post-header-badge"}>new</Badge>}

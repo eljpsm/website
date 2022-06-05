@@ -87,7 +87,7 @@ const App = () => {
             </div>
             <Nav className={"flex-column primary-footer"}>
                 <Nav.Item className={"primary-footer-version"}>
-                    <p>{websiteInfo.version}</p>
+                    <p>{`version ${websiteInfo.version}`}</p>
                 </Nav.Item>
                 <Nav.Item>
                     <a target={"_blank"} rel={"noopener noreferrer"} href={websiteInfo.repository}>licensed under
