@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./App.scss";
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {Alert, Container, Nav, Navbar} from "react-bootstrap";
 import HomeView from "./views/HomeView";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import BlogPostView from "./views/BlogPostView";
@@ -37,8 +37,8 @@ const App = (): JSX.Element => {
     // Declare whether the posts are currently being loaded.
     const [isLoadingPosts, setIsLoadingPosts] = useState<boolean>(false)
 
-    // TODO: Implement an error display.
-    const [error, setError] = useState<unknown>()
+    // Display any errors.
+    const [error, setError] = useState<Error | undefined | null>()
 
     // Order the blog posts by their date.
     //
@@ -68,9 +68,9 @@ const App = (): JSX.Element => {
                                 ...postTextMap, ...newValue
                             }))
                         })
-                        .catch(err => setError(err))
+                        .catch(err => setError(err as Error))
                 })
-                .catch(err => setError(err))
+                .catch(err => setError(err as Error))
         })
         setIsLoadingPosts(false)
     }, [])
@@ -88,14 +88,19 @@ const App = (): JSX.Element => {
                 </Navbar.Collapse>
             </Navbar>
             <div className={"content"}>
-                <Routes>
-                    <Route path={"/"} element={<HomeView blogPosts={orderedBlogPosts} updateTitle={updateTitle}/>}/>
-                    <Route
-                        // Catch all other paths and try and interpret them as blog posts.
-                        path={"*"} element={<BlogPostView blogPostNames={blogPostNames} blogPosts={blogPosts}
-                                                          postTextMap={postTextMap}
-                                                          isLoadingPosts={isLoadingPosts} updateTitle={updateTitle}/>}/>
-                </Routes>
+                <>
+                    {error &&
+                        <Alert color={"danger"} dismissible onClose={() => setError(null)}>{error.message}</Alert>}
+                    <Routes>
+                        <Route path={"/"} element={<HomeView blogPosts={orderedBlogPosts} updateTitle={updateTitle}/>}/>
+                        <Route
+                            // Catch all other paths and try and interpret them as blog posts.
+                            path={"*"} element={<BlogPostView blogPostNames={blogPostNames} blogPosts={blogPosts}
+                                                              postTextMap={postTextMap}
+                                                              isLoadingPosts={isLoadingPosts}
+                                                              updateTitle={updateTitle}/>}/>
+                    </Routes>
+                </>
             </div>
             <Nav className={"flex-column primary-footer"}>
                 <Nav.Item className={"primary-footer-version"}>
