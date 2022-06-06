@@ -107,8 +107,9 @@ const App = (): JSX.Element => {
                     <p>{`version ${websiteInfo.version}`}</p>
                 </Nav.Item>
                 <Nav.Item>
-                    <a target={"_blank"} rel={"noopener noreferrer"} href={websiteInfo.repository}>licensed under
-                        MIT</a>
+                    <a target={"_blank"} rel={"noopener noreferrer"} href={websiteInfo.repository}>{`copyright (c) 2022
+                        ${contactInformation.name.toLowerCase()} licensed under
+                        MIT`}</a>
                 </Nav.Item>
             </Nav>
         </Container>
