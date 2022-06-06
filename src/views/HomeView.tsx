@@ -19,7 +19,7 @@ export interface HomeViewProps {
  * @param props - The HomeView properties.
  * @constructor
  */
-export const HomeView = (props: HomeViewProps) => {
+export const HomeView = (props: HomeViewProps): JSX.Element => {
     useEffect(() => {
         props.updateTitle(websiteInfo.title)
     }, [])
@@ -45,7 +45,7 @@ interface BlogPostHeaderProps {
  * @param props - The BlogPostHeader properties.
  * @constructor
  */
-const BlogPostHeader = (props: BlogPostHeaderProps) => {
+const BlogPostHeader = (props: BlogPostHeaderProps): JSX.Element => {
     const isNewPost = (postDate: Date) => {
         const current = new Date()
         return isSameDay(current, postDate) || isBefore(current, new Date(postDate.getFullYear(), postDate.getMonth(), postDate.getDate() + 7))

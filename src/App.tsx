@@ -14,7 +14,7 @@ import "./Bootstrap.scss"
  * Render the primary app.
  * @constructor
  */
-const App = () => {
+const App = (): JSX.Element => {
     /**
      * Update the app title.
      * @param title - The new title.
@@ -77,7 +77,7 @@ const App = () => {
 
     return <div className="App">
         <Container>
-            <Navbar className={"primary-header"}>
+            <Navbar>
                 <Navbar.Brand className={"primary-header-brand"}
                               onClick={() => navigate("/")}>eljpsm<span
                     className={"primary-header-style"}>.com</span></Navbar.Brand>

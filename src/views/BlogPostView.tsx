@@ -28,7 +28,7 @@ export interface BlogPostViewProps {
  * @param props - The BlogPostView properties.
  * @constructor
  */
-export const BlogPostView = (props: BlogPostViewProps) => {
+export const BlogPostView = (props: BlogPostViewProps): JSX.Element => {
     /**
      * Find similar blog post names from a given text string.
      * @param text - The text to search.
